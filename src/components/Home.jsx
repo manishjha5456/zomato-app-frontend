@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import logoimg from '../images/brandlg.png'
 function Home(){
     let navigate = useNavigate();
     let initData = {
@@ -81,10 +81,11 @@ function Home(){
           </div>
         </header>
         <section
-          className="col-12 d-flex flex-column align-items-center justify-content-center"
-        >
-          <p role="button" className="brand-name fw-bold my-lg-2 mb-2">m</p>
-          
+          className="col-12 d-flex flex-column align-items-center justify-content-center">
+          {/* <p role="button" className="brand-name fw-bold my-lg-2 mb-2">m</p> */}
+          <div>
+            <img style={{borderRadius:'75px'}} src={logoimg} width={'130px'} height={'130px'} alt="" />
+          </div>
           <p className="h1 text-white my-3 text-center">
             Find the best restaurants, cafés, and bars
           </p>
