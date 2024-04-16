@@ -67,7 +67,7 @@ function Header(){
                 <div className="col-10 d-flex justify-content-between py-2">
                     {/* <p role="button" className="m-0 brand" onClick={()=>navigate('/')}>m</p> */}
                     <div>
-                      <img style={{borderRadius:'50%'}} src={logo} width={'170px'} height={'40px'} alt="" />
+                      <img style={{borderRadius:'50%'}} src={logo} width={'170px'} height={'40px'} alt="logoimg" onClick={()=>navigate('/')} />
                     </div>
                     <div>
                     <button className="btn text-white me-2" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Login</button>
