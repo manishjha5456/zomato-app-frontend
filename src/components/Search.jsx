@@ -150,10 +150,10 @@ function Search(){
                     <img src={`/images/`+ restaurant.image} className="food-item" />
                     <div className="ms-5">
                       <p className="h4 fw-bold">{restaurant.name}</p>
-                      <span className="fw-bold text-mu    ted">{restaurant.locality}</span>
+                      <span className="fw-bold text-muted">{restaurant.locality}</span>
                       <p className="m-0 text-muted">
                         <i
-                          className="fa fa-map-marker fa-2x text-danger"
+                          className="fa fa-location-dot fa-2x text-dark"
                           aria-hidden="true">
                         </i>
                         {restaurant.locality}, {restaurant.city}
