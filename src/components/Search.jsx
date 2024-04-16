@@ -6,18 +6,52 @@ import { useEffect, useState } from "react";
 function Search(){
   let {id,name} = useParams();
   let [filter,setFilter] = useState({
-    meal_type:id
+    meal_type:id,
+    sort:1
   })
-  let [restaurantList,setRestaurantList] = useState([])
+  let [restaurantList,setRestaurantList] = useState([]);
+  let [locations,setLocations] = useState([]);
+
+  let getLocationList = async()=>{
+    try {
+      let url = "http://localhost:3040/get-location-list";
+      let response = await axios.get(url);
+      let data = response.data
+      //setMeals(data.result);
+      setLocations(data.LocationList);
+      //console.log(data.LocationList);
+
+  } catch (error) {
+      alert('server Error');
+      console.log(error);
+  }
+  };
+
   let getFilterView = async ()=>{
     let url = 'http://localhost:3040/filter';
     let {data} = await axios.post(url,filter);
     setRestaurantList(data.result);
+  };
+  let setFilterData = (event,type)=>{
+    let {value} = event.target;
+    let _filter = {...filter}
+    switch (type) {
+      case "sort":
+        _filter['sort'] = Number(value);
+        break;
+    
+      default:
+        break;
+    }
+    setFilter(_filter);
   }
+  useEffect(()=>{
+    getLocationList();
+  },[]) 
   useEffect(
     ()=>{
       getFilterView();
-    },[]
+    },[filter]
   )
     return(<>
     {/* <div className="row bg-danger justify-content-center">
@@ -56,11 +90,14 @@ function Search(){
               <div>
                 <label htmlFor="" className="form-label">Select Location</label>
                 <select className="form-select form-select-sm">
-                  <option value="">option-1</option>
-                  <option value="">option-1</option>
-                  <option value="">option-1</option>
-                  <option value="">option-1</option>
-                  <option value="">option-1</option>
+                  <option value="">---select one---</option>
+                  {
+                    locations.map((location,index)=>{
+                    return (
+                    <option key={location._id} value={location.location_id} 
+                    >{location.name}, {location.city}</option>)
+                  },[])
+                  }
                 </select>
               </div>
               <p className="mt-4 mb-2 fw-bold">Cuisine</p>
@@ -126,12 +163,16 @@ function Search(){
               <p className="mt-4 mb-2 fw-bold">Sort</p>
               <div>
                 <div className="ms-1">
-                  <input type="radio" className="form-check-input" />
+                  <input type="radio" className="form-check-input" value={1}
+                  onClick={(event)=>setFilterData(event,"sort")}
+                  name="sort" />
                   <label htmlFor="" className="form-check-label ms-1"
                     >Price low to high</label>
                 </div>
                 <div className="ms-1">
-                  <input type="radio" className="form-check-input" />
+                  <input type="radio" className="form-check-input" value={-1}
+                  onClick={(event)=>setFilterData(event,"sort")}
+                  name="sort" />
                   <label htmlFor="" className="form-check-label ms-1"
                     >Price high to low</label>
                 </div>
