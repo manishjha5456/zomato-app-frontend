@@ -204,7 +204,7 @@ function Search(){
               <hr />
               <div className="d-flex">
                 <div>
-                  <p className="m-0">CUISssssINES:</p>
+                  <p className="m-0">CUISINES:</p>
                   <p className="m-0">COST FOR TWO:</p>
                 </div>
                 <div className="ms-5">
