@@ -88,13 +88,13 @@ function Search(){
             {/* <!-- Collapse start  --> */}
             <div className="collapse show" id="collapseFilter">
               <div>
-                <label htmlFor="" className="form-label">Select Location</label>
-                <select className="form-select form-select-sm">
+                <label htmlFor="selectOne" className="form-label">Select Location</label>
+                <select id="selectOne" className="form-select form-select-sm">
                   <option value="">---select one---</option>
                   {
                     locations.map((location,index)=>{
                     return (
-                    <option key={location._id} value={location.location_id} 
+                    <option key={location._id} value={location.location_id} className="mb-4"
                     >{location.name}, {location.city}</option>)
                   },[])
                   }
