@@ -39,7 +39,16 @@ function Search(){
       case "sort":
         _filter['sort'] = Number(value);
         break;
-    
+      case "location":
+        value = Number(value);
+        if(value === -1){
+          delete _filter['location'];
+        }else{
+          _filter['location']=value;
+        }
+        //_filter['location'] = Number(value);
+        console.log(value);
+        break;        
       default:
         break;
     }
@@ -89,8 +98,8 @@ function Search(){
             <div className="collapse show" id="collapseFilter">
               <div>
                 <label htmlFor="selectOne" className="form-label">Select Location</label>
-                <select id="selectOne" className="form-select form-select-sm">
-                  <option value="">---select one---</option>
+                <select id="selectOne" className="form-select form-select-sm" onClick={(event)=>setFilterData(event,'location')}>
+                  <option value="-1">---select one---</option>
                   {
                     locations.map((location,index)=>{
                     return (
@@ -103,35 +112,31 @@ function Search(){
               <p className="mt-4 mb-2 fw-bold">Cuisine</p>
               <div>
                 <div className="ms-1">
-                  <input type="checkbox" className="form-check-input" />
+                  <input type="checkbox" className="form-check-input" value={1} />
                   <label htmlFor="" className="form-check-label ms-1"
                     >North Indian</label>
                 </div>
                 <div className="ms-1">
-                  <input type="checkbox" className="form-check-input" />
+                  <input type="checkbox" className="form-check-input" value={2} />
                   <label htmlFor="" className="form-check-label ms-1"
-                    >North Indian</label>
+                    >South Indian</label>
                 </div>
                 <div className="ms-1">
-                  <input type="checkbox" className="form-check-input" />
+                  <input type="checkbox" className="form-check-input" value={3} />
                   <label htmlFor="" className="form-check-label ms-1"
-                    >North Indian</label>
+                    >Chinese</label>
                 </div>
                 <div className="ms-1">
-                  <input type="checkbox" className="form-check-input" />
+                  <input type="checkbox" className="form-check-input" value={4}/>
                   <label htmlFor="" className="form-check-label ms-1"
-                    >North Indian</label>
+                    >Fast Food</label>
                 </div>
                 <div className="ms-1">
-                  <input type="checkbox" className="form-check-input" />
+                  <input type="checkbox" className="form-check-input" value={5} />
                   <label htmlFor="" className="form-check-label ms-1"
-                    >North Indian</label>
+                    >Street Food</label>
                 </div>
-                <div className="ms-1">
-                  <input type="checkbox" className="form-check-input" />
-                  <label htmlFor="" className="form-check-label ms-1"
-                    >North Indian</label>
-                </div>
+                
               </div>
               <p className="mt-4 mb-2 fw-bold">Cost For Two</p>
               <div>
