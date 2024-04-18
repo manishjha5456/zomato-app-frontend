@@ -1,10 +1,62 @@
 import { useNavigate } from "react-router-dom";
 import brandlogo from "../images/brandlogo.png";
 import logo from "../images/logo.png";
+import { useState } from "react";
+import axios from "axios";
 
 function Header() {
+  let initialUserVal = {
+    f_name: "",
+    l_name: "",
+    email: "",
+    mobile: "",
+    password: "",
+    confirm_password: "",
+    address: "",
+  };
   let navigate = useNavigate();
-
+  let [newUser, setNewUser] = useState({ ...initialUserVal });
+  let [hidePass, setHidePass] = useState(false);
+  let setUserData = (event) => {
+    let { value, name } = event.target;
+    setNewUser({ ...newUser, [name]: value });
+  };
+  let saveNewUserData = async () => {
+    let sendData = {
+      f_name: newUser.f_name,
+      l_name: newUser.l_name,
+      email: newUser.email,
+      mobile: newUser.mobile,
+      password: newUser.password,
+      //confirm_password: newUser.confirm_password,
+      address: newUser.address,
+    };
+    console.log(sendData);
+    let url = "http://localhost:3040/user-detail-saver";
+    let { data } = await axios.post(url, sendData);
+    console.log(data);
+    if (data.status === true) {
+      alert("registered successfully");
+    } else {
+      alert(data.message);
+    }
+  };
+  let loginUser = async () => {
+    let sendData = {
+      email: newUser.email,
+      password: newUser.password,
+    };
+    console.log(sendData);
+    let url = "http://localhost:3040/user-login";
+    let { data } = await axios.post(url, sendData);
+    console.log(data);
+    if (data.status === true) {
+      alert("login successfully");
+      navigate("/home");
+    } else {
+      alert(data.message);
+    }
+  };
   return (
     <>
       <div
@@ -35,6 +87,9 @@ function Header() {
                     className="form-control"
                     placeholder="First name"
                     aria-label="First name"
+                    onChange={setUserData}
+                    name="f_name"
+                    value={newUser.f_name}
                   />
                 </div>
                 <div className="col">
@@ -43,70 +98,95 @@ function Header() {
                     className="form-control"
                     placeholder="Last name"
                     aria-label="Last name"
+                    onChange={setUserData}
+                    name="l_name"
+                    value={newUser.l_name}
                   />
                 </div>
               </div>
-              <div class="input-group mb-3">
+              <div className="input-group mb-3">
                 <i
-                  class="input-group-text fa fa-envelope pt-2"
+                  className="input-group-text fa fa-envelope pt-2"
                   id="basic-addon1"
                 ></i>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Email"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
+                  onChange={setUserData}
+                  name="email"
+                  value={newUser.email}
                 />
               </div>
-              <div class="input-group mb-3">
+              <div className="input-group mb-3">
                 <i
-                  class="input-group-text fa fa-phone pt-2"
+                  className="input-group-text fa fa-phone pt-2"
                   id="basic-addon1"
                 ></i>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="MobileNumber"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
+                  onChange={setUserData}
+                  name="mobile"
+                  value={newUser.mobile}
                 />
               </div>
-              <div class="input-group mb-3">
+              <div className="input-group mb-3">
                 <i
-                  class="input-group-text fa fa-key pt-2"
+                  className="input-group-text fa fa-key pt-2"
                   id="basic-addon1"
                 ></i>
                 <input
-                  type="text"
-                  class="form-control"
+                  type={hidePass ? "text" : "password"}
+                  className="form-control"
                   placeholder="Password"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
+                  onChange={setUserData}
+                  name="password"
+                  value={newUser.password}
                 />
+                <button
+                  className="input-group-text  pt-2"
+                  id="basic-addon1"
+                  onClick={() => setHidePass(!hidePass)}
+                >
+                  <i className={hidePass ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+                </button>
               </div>
-              <div class="input-group mb-3">
+              <div className="input-group mb-3">
                 <i
-                  class="input-group-text fa fa-key pt-2"
+                  className="input-group-text fa fa-key pt-2"
                   id="basic-addon1"
                 ></i>
                 <input
-                  type="text"
-                  class="form-control"
+                  type={hidePass ? "text" : "password"}
+                  className="form-control"
                   placeholder="Confirm Password"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
+                  onChange={setUserData}
+                  name="confirm_password"
+                  value={newUser.confirm_password}
                 />
               </div>
 
-              <div class="form-floating mb-3">
+              <div className="form-floating mb-3">
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="floatingInput"
-                  placeholder="name@example.com"
+                  placeholder="your address please"
+                  onChange={setUserData}
+                  name="address"
+                  value={newUser.address}
                 />
-                <label className="" for="floatingInput">
+                <label className="" htmlFor="floatingInput">
                   Address
                 </label>
               </div>
@@ -126,6 +206,7 @@ function Header() {
                 className="btn btn-primary"
                 data-bs-target="#exampleModalToggle3"
                 data-bs-toggle="modal"
+                onClick={() => saveNewUserData()}
               >
                 Submit
               </button>
