@@ -84,7 +84,7 @@ function Home(){
           className="col-12 d-flex flex-column align-items-center justify-content-center">
           {/* <p role="button" className="brand-name fw-bold my-lg-2 mb-2">m</p> */}
           <div>
-            <img className="border border-1 border-white" style={{borderRadius:'15px',marginTop:'70px'}} src={logoimg} width={'400px'} height={'100px'} alt="" />
+            <img className="" style={{borderRadius:'15px',marginTop:'70px'}} src={logoimg} width={'400px'} height={'100px'} alt="" />
           </div>
           <p className="h1 text-white my-3 text-center">
             Find the best restaurants, cafés, and bars
